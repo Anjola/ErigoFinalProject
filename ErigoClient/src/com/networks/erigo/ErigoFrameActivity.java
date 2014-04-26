@@ -53,6 +53,7 @@ public class ErigoFrameActivity extends ActionBarActivity implements
 	ErigoService mService;
 	public static final int GENERALMESSAGE = 0;
 	public static final int SPECIFICMESSAGE = 1;
+	public static final int PROBLEMMESSAGE = 2;
 	
 	private static class MainHandler extends Handler {
 		WeakReference<ErigoFrameActivity> wr;
@@ -72,6 +73,8 @@ public class ErigoFrameActivity extends ActionBarActivity implements
 				case SPECIFICMESSAGE:
 					activity.parseSpecificMessage((String)message.obj);
 					break;
+				case PROBLEMMESSAGE:
+					activity.parseProblemMessage((String)message.obj);
 				default:
 					super.handleMessage(message);
 				}
@@ -149,6 +152,11 @@ public class ErigoFrameActivity extends ActionBarActivity implements
 		}
 	}
 	
+	public void parseProblemMessage(String obj) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	@Override
 	protected void onStart() {
 		// TODO Auto-generated method stub

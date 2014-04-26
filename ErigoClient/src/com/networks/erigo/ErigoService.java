@@ -134,8 +134,6 @@ public class ErigoService extends Service {
 					e.printStackTrace();	
 
 				}
-
-
 			}
 		};
 		//try to connect every 25 seconds
@@ -179,12 +177,16 @@ public class ErigoService extends Service {
 				return;
 			}
 			if(command.startsWith("GENERALMESSAGE")){
-				onGeneralMessage(command);
+				onGeneralMessage(payload.replace(params[0]+","+command+",",""));
 				return;
 
 			}	
 			if(command.startsWith("SPECIFICMESSAGE")){
-				onSpecificMessage(params[2]);
+				onSpecificMessage(payload.replace(params[0]+","+command+",",""));
+				return;
+			}
+			if(command.startsWith("PROBLEM")){
+				onProblemMessage(payload.replace(params[0]+","+command+",",""));
 				return;
 			}
 			if(payload.startsWith("ACK")){
@@ -196,11 +198,25 @@ public class ErigoService extends Service {
 			onBadRequest(payload);
 		}
 
+		private void onProblemMessage(String payload) {
+			// TODO Auto-generated method stub
+			//alert mainactivity of data availability
+			Message message = Message.obtain(null, ErigoFrameActivity.PROBLEMMESSAGE);
+			message.obj = payload;
+			try {
+				myMessenger.send(message);
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+
 		private void onSpecificMessage(String payload) {
 			// TODO Auto-generated method stub
 			
 			//alert mainactivity of data availability
-			Message message = Message.obtain(null, ErigoFrameActivity.GENERALMESSAGE);
+			Message message = Message.obtain(null, ErigoFrameActivity.SPECIFICMESSAGE);
 			message.obj = payload;
 			try {
 				myMessenger.send(message);
@@ -217,10 +233,9 @@ public class ErigoService extends Service {
 			// build notification
 			NotificationCompat.Builder builder = new NotificationCompat.Builder(ErigoService.this)
 			        .setContentTitle("New Encouragement!")
-			        .setContentText(payload.split(",")[0])
-			        .setSmallIcon(R.drawable.happyheart)
-			        .setContentIntent(pendingIntent)
-			        .setAutoCancel(true);
+			        .setContentText("Cheer up. You have reiceived a new encouragement :)")
+			        .setAutoCancel(true)
+			        .setContentIntent(pendingIntent);
 			
 			
 			NotificationManager manager = 
@@ -269,36 +284,6 @@ public class ErigoService extends Service {
 		}.start();
 
 	}
-
-	private void showNotification(String title, String text) {
-		NotificationCompat.Builder mBuilder =
-			    new NotificationCompat.Builder(ErigoService.this)
-			    .setSmallIcon(R.drawable.happyheart)
-			    .setContentTitle(title)
-			    .setContentText(text);
-		
-		Intent resultIntent = new Intent(ErigoService.this, ErigoFrameActivity.class);
-		PendingIntent resultPendingIntent =
-		    PendingIntent.getActivity(
-		    ErigoService.this,
-		    0,
-		    resultIntent,
-		    PendingIntent.FLAG_UPDATE_CURRENT
-		);
-		
-		mBuilder.setContentIntent(resultPendingIntent);
-		
-		
-		// Sets an ID for the notification
-		int mNotificationId = 001;
-		// Gets an instance of the NotificationManager service
-		NotificationManager mNotifyMgr = 
-		        (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-		// Builds the notification and issues it.
-		mNotifyMgr.notify(mNotificationId, mBuilder.build());
-	}
-
-
 
 	public void onRegistered(String payload) {
 		// TODO Auto-generated method stub

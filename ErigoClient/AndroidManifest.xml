@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.networks.erigo"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="17" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <service
+            android:name="com.networks.erigo.ErigoService"
+            android:enabled="true" />
+        <activity
+            android:name="com.networks.erigo.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.networks.erigo.LoginActivitym"
+            android:label="@string/title_activity_login_activitym"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
+        </activity>
+        <activity
+            android:name="com.networks.erigo.Main1Activity"
+            android:label="@string/title_activity_main1"
+            android:parentActivityName="com.networks.erigo.LoginActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.networks.erigo.LoginActivity" />
+        </activity>
+        <activity
+            android:name="com.networks.erigo.ErigoFrameActivity"
+            android:label="@string/title_activity_erigo_frame"
+            android:parentActivityName="com.networks.erigo.Main1Activity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.networks.erigo.Main1Activity" />
+        </activity>
+        <activity
+            android:name="com.networks.erigo.MessageListActivity"
+            android:label="@string/title_message_list"
+            android:parentActivityName="com.networks.erigo.Main1Activity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.networks.erigo.Main1Activity" />
+        </activity>
+        <activity
+            android:name="com.networks.erigo.MessageDetailActivity"
+            android:label="@string/title_message_detail"
+            android:parentActivityName="com.networks.erigo.MessageListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.networks.erigo.MessageListActivity" />
+        </activity>
+    </application>
+
+</manifest>

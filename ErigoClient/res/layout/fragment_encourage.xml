@@ -1,0 +1,143 @@
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background1"
+    android:orientation="vertical"
+    android:padding="30dp"
+    android:paddingBottom="20dp"
+    tools:context="com.networks.erigo.ErigoFrameActivity$PlaceholderFragment" xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation = "vertical" >
+
+            <TextView
+                android:id="@+id/Menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="5dp"
+                android:text="How are you feeling?"
+                android:textColor="#ffffff"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" 
+                android:orientation ="horizontal">
+
+                <TextView
+                    android:id="@+id/prob"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Problem:"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <MultiAutoCompleteTextView
+                    android:id="@+id/problem"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="enter category" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/quickbutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:background="@color/LimeGreen"
+                android:drawableLeft="@drawable/ic_action_search"
+                android:text="Quick Encouragements"
+                android:textColor="#ffffff" />
+
+            <TextView
+                android:id="@+id/Menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="5dp"
+                android:text="Special Scenerio?"
+                android:textColor="#ffffff"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/encourageneedtext"
+                android:layout_width="match_parent"
+                android:layout_height="86dp"
+                android:ems="10"
+                android:gravity="top|left"
+                android:inputType="textMultiLine"
+                android:lines="5"
+                android:maxLines="6"
+                android:minLines="1"
+                android:scrollbars="vertical" >
+
+                <requestFocus />
+            </EditText>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal" >
+
+                <ImageButton
+                    android:id="@+id/encouragesong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="2dp"
+                    android:layout_marginTop="2dp"
+                    android:src="@drawable/ic_action_microphone"
+                    android:textColor="#ffffff" />
+
+                <ImageButton
+                    android:id="@+id/encourageimg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="2dp"
+                    android:layout_marginTop="2dp"
+                    android:src="@drawable/ic_action_photo"
+                    android:textColor="#ffffff" />
+
+                <ImageButton
+                    android:id="@+id/encourageposts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:src="@drawable/ic_action_attach"
+                    android:textColor="#ffffff" />
+
+                <ImageButton
+                    android:id="@+id/encouragerecord"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:src="@drawable/ic_action_microphone"
+                    android:textColor="#ffffff" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/postButton"
+                android:layout_width="182dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:background="@color/LimeGreen"
+                android:drawableLeft="@drawable/ic_action_edit"
+                android:text="Post"
+                android:textColor="#ffffff" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

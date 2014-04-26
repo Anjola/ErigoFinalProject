@@ -1,0 +1,52 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background1"
+    android:orientation="vertical"
+    android:padding="30dp"
+    android:paddingBottom="20dp" >
+    
+       <TextView
+        android:id="@+id/menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="5dp"
+        android:text="Main Menu"
+        android:textColor="#ffffff"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/encourage"
+        android:layout_width="178dp"
+        android:layout_height="68dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:drawableLeft="@drawable/happyheart"
+        android:background="@drawable/image_bg"
+        android:text="Encourage someone"
+        android:textColor="#ffffff" />
+
+    <Button
+        android:id="@+id/getencouraged"
+        android:layout_width="182dp"
+        android:layout_height="78dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+                android:drawableLeft="@drawable/sadicon"
+        android:background="@drawable/image_bg"
+        android:text="Get Encouraged"
+        android:textColor="#ffffff" />
+    <Button
+        android:id="@+id/posts"
+        android:layout_width="182dp"
+        android:layout_height="78dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+       	android:drawableLeft="@drawable/postsicon"
+        android:background="@drawable/image_bg"
+        android:text="View Posts"
+        android:textColor="#ffffff" />
+
+</LinearLayout>

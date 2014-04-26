@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Erigo</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="action_settings">Settings</string>
+
+    <string-array name="problem_array">
+        <item>Angry</item>
+        <item>Depressed</item>
+        <item>Heartbroken</item>
+        <item>Down</item>
+        <item>General</item>
+        <item>Confused</item>
+        <item>Lost</item>
+        <item>Lonely</item>
+        <item>Regretful</item>
+        <item>Perssimistic</item>
+    </string-array>
+
+    <string name="title_activity_main1">MainActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_erigo_frame">Erigo</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_message_list">Messages</string>
+    <string name="title_message_detail">Message Detail</string>
+
+</resources>

@@ -395,6 +395,12 @@ public class ErigoService extends Service {
 		Toast.makeText(getApplicationContext(), "Polling Server...",
 				Toast.LENGTH_SHORT).show();
 
+	}
+
+	public void sendWithID(String string) {
+		// TODO Auto-generated method stub
+		//include clientID
+		send(string.replaceFirst(",",","+clientID +","));
 	}	
 }
 

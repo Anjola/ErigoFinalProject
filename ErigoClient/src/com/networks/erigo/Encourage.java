@@ -46,8 +46,8 @@ public class Encourage extends Fragment {
 	ArrayAdapter<String> adapter;
 	String[] categories;
 	private OnFragmentInteractionListener mListener;
-	protected EditText et;
-	protected Message mMessage = new Message("","","");
+	EditText et;
+	Message mMessage = new Message("","","");
 
 
 
@@ -107,7 +107,15 @@ public class Encourage extends Fragment {
 		adapter = new ArrayAdapter<String>(this.getActivity(),android.R.layout.simple_dropdown_item_1line,categories);
 		atv.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
 		atv.setAdapter(adapter);
-		atv.showDropDown();
+		atv.setThreshold(0);
+		atv.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+;					atv.showDropDown();
+				}
+		});
+		
+		et=(EditText)view.findViewById(R.id.needtext);
 
 
 		view.findViewById(R.id.quickbutton).setOnClickListener(
@@ -122,14 +130,15 @@ public class Encourage extends Fragment {
 					@Override
 					public void onClick(View view) {
 
-
-						et=(EditText)view.findViewById(R.id.encourageneedtext);
-						if(et!= null && !et.getText().equals(""))
+						if(et!= null && !et.getText().equals("")){
 							mMessage.message=et.getText().toString();
+							Log.i("verbose",mMessage.message);
+						}
 						String messageCategories = null;
 						if(atv!=null && !atv.getText().equals(""))
 						{
 							messageCategories = atv.getText().toString();
+							Log.i("verbose",messageCategories);
 						}
 						if(messageCategories == null ||messageCategories.isEmpty() || messageCategories.equals(","))
 						{
@@ -146,16 +155,21 @@ public class Encourage extends Fragment {
 
 						//only proceed if non vulgar and non empty
 						if(!mMessage.isEmpty() && !ErigoUtils.isProfanePost(mMessage.message)){
+							Log.i("Verbose",mMessage.message +  " is not profone");
 							ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 							String json;
 							try {
 								json = ow.writeValueAsString(mMessage);
-								((ErigoFrameActivity)getActivity()).mService.send("encouragee,"+json);
+								((ErigoFrameActivity)getActivity()).mService.sendWithID("ENCOURAGEE,"+json);
 							} catch (IOException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 							
+						}
+						else
+						{
+							Log.i("Verbose",mMessage.message +  " is profone");
 						}
 						Log.i("EncouragerFragment","Message sent");
 					}
@@ -234,29 +248,6 @@ public class Encourage extends Fragment {
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-						//						AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-						//
-						//						alert.setTitle("Enter Imagr Url");
-						//						alert.setMessage("Message");
-						//
-						//						// Set an EditText view to get user input 
-						//						final EditText input = new EditText(getActivity());
-						//						alert.setView(input);
-						//
-						//						alert.setPositiveButton("Song", new DialogInterface.OnClickListener() {
-						//							public void onClick(DialogInterface dialog, int id) {
-						//								// User clicked OK button
-						//								mMessage.imageUrl = input.getText().toString();
-						//								Toast.makeText(getActivity().getApplicationContext(), "Image added!",
-						//										   Toast.LENGTH_LONG).show();
-						//							}
-						//						});
-						//						alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-						//							public void onClick(DialogInterface dialog, int id) {
-						//								// User cancelled the dialog
-						//							}
-						//						});
-						//						alert.show();
 						Toast.makeText(getActivity().getApplicationContext(), "Coming soon!",
 								Toast.LENGTH_LONG).show();
 
@@ -267,29 +258,6 @@ public class Encourage extends Fragment {
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-						//						AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-						//
-						//						alert.setTitle("Enter Imagr Url");
-						//						alert.setMessage("Message");
-						//
-						//						// Set an EditText view to get user input 
-						//						final EditText input = new EditText(getActivity());
-						//						alert.setView(input);
-						//
-						//						alert.setPositiveButton("Song", new DialogInterface.OnClickListener() {
-						//							public void onClick(DialogInterface dialog, int id) {
-						//								// User clicked OK button
-						//								mMessage.imageUrl = input.getText().toString();
-						//								Toast.makeText(getActivity().getApplicationContext(), "Image added!",
-						//										   Toast.LENGTH_LONG).show();
-						//							}
-						//						});
-						//						alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-						//							public void onClick(DialogInterface dialog, int id) {
-						//								// User cancelled the dialog
-						//							}
-						//						});
-						//						alert.show();
 						Toast.makeText(getActivity().getApplicationContext(), "Coming soon!",
 								Toast.LENGTH_LONG).show();
 

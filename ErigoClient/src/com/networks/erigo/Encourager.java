@@ -101,7 +101,13 @@ public class Encourager extends Fragment {
 		adapter = new ArrayAdapter<String>(this.getActivity(),android.R.layout.simple_dropdown_item_1line,categories);
 		atv.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
 		atv.setAdapter(adapter);
-		atv.showDropDown();
+		atv.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+;					atv.showDropDown();
+				}
+		});
+		et=(EditText)view.findViewById(R.id.encouragetext);
 
 		view.findViewById(R.id.sendLove).setOnClickListener(
 				new View.OnClickListener() {
@@ -109,7 +115,7 @@ public class Encourager extends Fragment {
 					public void onClick(View view) {
 						
 						
-						et=(EditText)view.findViewById(R.id.encouragetext);
+						
 						if(et!= null && !et.getText().equals(""))
 							mMessage.message=et.getText().toString();
 						String messageCategories = null;
@@ -134,7 +140,7 @@ public class Encourager extends Fragment {
 							String json;
 							try {
 								json = ow.writeValueAsString(mMessage);
-								((ErigoFrameActivity)getActivity()).mService.send("encourager,"+json);
+								((ErigoFrameActivity)getActivity()).mService.sendWithID("ENCOURAGER,"+json);
 								Log.i("EncouragerFragment",json);
 							} catch (IOException e) {
 								// TODO Auto-generated catch block

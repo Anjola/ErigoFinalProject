@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import android.content.res.AssetManager;
+import android.util.Log;
 
 public class ErigoUtils {
 	
@@ -51,30 +52,35 @@ public class ErigoUtils {
 		for(String word:words)
 		{
 			//for symbol replacements 
-			word = word.replaceAll("@", "a").replaceAll("[ I3 l3 i3]","b").replaceAll("(","c");
-		    word = word.replaceAll("3","e").replaceAll("6","g").replaceAll("!","i");
-		    word = word.replaceAll("1","l").replaceAll("0", "o").replaceAll("$","s");
-		    word = word.replaceAll("7","t").replaceAll("9", "q");
+			word = word.replace("@", "a").replace("i3","b").replace("l3","b").replace("(","c");
+		    word = word.replace("3","e").replace("6","g").replace("!","i");
+		    word = word.replace("1","l").replace("0", "o").replace("$","s");
+		    word = word.replace("7","t").replace("9", "q");
 		
 		    //to match repeated characters
 		    // 3 or more to avoid common double
-			if(badwords.contains(word.replaceAll("(.)\\2+", "$1")))
+			if(badwords.contains(word.replaceAll("(.)\\1+", "$1")))
+			{
+				Log.i("Profane",word.replaceAll("(.)\\1+", "$1"));
 				return true;
+			}
 			
 			//for alphabet replacements 
 			//build word variations list 
 			List<String> wordVariations = new ArrayList<String>();
-			wordVariations.add(word.replaceAll("ph","f"));
-			wordVariations.add(word.replaceAll("l","i"));
-			wordVariations.add(word.replaceAll("i","l"));
-			wordVariations.add(word.replaceAll("c","k"));
-			wordVariations.add(word.replaceAll("k","c"));
+			wordVariations.add(word.replace("ph","f"));
+			wordVariations.add(word.replace("l","i"));
+			wordVariations.add(word.replace("i","l"));
+			wordVariations.add(word.replace("c","k"));
+			wordVariations.add(word.replace("k","c"));
 
 			//check through variations
 			for(String variation:wordVariations)
 			{
-				if(badwords.contains(variation.replaceAll("(.)\\2+", "$1")));
+				if(badwords.contains(variation)){
+					Log.i("Profane",word.replaceAll("(.)\\1+", "$1"));
 					return true;
+				}
 			}
 				
 		}

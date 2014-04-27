@@ -101,6 +101,7 @@ public class Encourager extends Fragment {
 		adapter = new ArrayAdapter<String>(this.getActivity(),android.R.layout.simple_dropdown_item_1line,categories);
 		atv.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
 		atv.setAdapter(adapter);
+		atv.showDropDown();
 
 		view.findViewById(R.id.sendLove).setOnClickListener(
 				new View.OnClickListener() {
@@ -116,7 +117,7 @@ public class Encourager extends Fragment {
 						{
 							messageCategories = atv.getText().toString();
 						}
-						if(messageCategories == null)
+						if(messageCategories == null ||messageCategories.isEmpty()||messageCategories.equals(","))
 							mMessage.Categories.add("Unspecified");
 						else
 						{
@@ -128,18 +129,20 @@ public class Encourager extends Fragment {
 
 						//only proceed if non vulgar and non empty
 						if(!mMessage.isEmpty() && !ErigoUtils.isProfanePost(mMessage.message)){
+							Log.i("EncouragerFragment","Not Profane");
 							ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 							String json;
 							try {
 								json = ow.writeValueAsString(mMessage);
 								((ErigoFrameActivity)getActivity()).mService.send("encourager,"+json);
+								Log.i("EncouragerFragment",json);
 							} catch (IOException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 							
 						}
-						Log.i("EncouragerFragment","Encouraging post sent ");
+						
 		
 						
 

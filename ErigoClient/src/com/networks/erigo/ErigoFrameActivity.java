@@ -1,5 +1,7 @@
 package com.networks.erigo;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.util.Locale;
 
@@ -16,6 +18,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.res.AssetManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -113,7 +116,16 @@ public class ErigoFrameActivity extends ActionBarActivity implements
 		setContentView(R.layout.erigo_frame);
 
 		//build filter list
-		ErigoUtils.populateBadWords();
+		AssetManager am = getAssets();
+		InputStream is;
+		try {
+			is = am.open("badwords.txt");
+			ErigoUtils.populateBadWords(is);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 		// Set up the action bar.
 		final ActionBar actionBar = getSupportActionBar();

@@ -47,7 +47,7 @@ public class Encourage extends Fragment {
 	String[] categories;
 	private OnFragmentInteractionListener mListener;
 	protected EditText et;
-	protected Message mMessage;
+	protected Message mMessage = new Message("","","");
 
 
 
@@ -107,6 +107,7 @@ public class Encourage extends Fragment {
 		adapter = new ArrayAdapter<String>(this.getActivity(),android.R.layout.simple_dropdown_item_1line,categories);
 		atv.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
 		atv.setAdapter(adapter);
+		atv.showDropDown();
 
 
 		view.findViewById(R.id.quickbutton).setOnClickListener(
@@ -130,8 +131,10 @@ public class Encourage extends Fragment {
 						{
 							messageCategories = atv.getText().toString();
 						}
-						if(messageCategories == null)
+						if(messageCategories == null ||messageCategories.isEmpty() || messageCategories.equals(","))
+						{
 							mMessage.Categories.add("Unspecified");
+						}
 						else
 						{
 							mMessage.Categories.addAll(Arrays.asList(messageCategories.split(",")));
@@ -260,7 +263,7 @@ public class Encourage extends Fragment {
 					}
 				});
 
-		view.findViewById(R.id.posts).setOnClickListener(
+		view.findViewById(R.id.encourageposts).setOnClickListener(
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {

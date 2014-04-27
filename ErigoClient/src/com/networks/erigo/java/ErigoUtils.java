@@ -4,9 +4,13 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+
+import android.content.res.AssetManager;
 
 public class ErigoUtils {
 	
@@ -14,12 +18,12 @@ public class ErigoUtils {
 	public static List<String> categories = new ArrayList<String>();
 	public static HashSet<String> badwords = new HashSet<String>();
 	
-	public static void populateBadWords()
+	public static void populateBadWords(InputStream is)
 	{
 		BufferedReader reader = null;
 		try {
-			File file = new File("badwords.txt");
-		    reader = new BufferedReader(new FileReader(file));
+			
+		    reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
 		    String line;
 		    while ((line = reader.readLine()) != null) {
 		        badwords.add(line);
@@ -29,6 +33,7 @@ public class ErigoUtils {
 		} finally {
 	 
 	        try {
+	        if(reader!=null)
 				reader.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

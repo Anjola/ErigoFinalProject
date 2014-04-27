@@ -159,11 +159,12 @@ public class ErigoService extends Service {
 			String[] params = payload.split(",");
 			acknowlege(params[0]);
 			String command = params[0];
-			if(params.length>1);
-			command = params[1];
+			if(params.length>1){
+				command = params[1];
+			}
 			Log.i("Verbose",payload);
-			if(command.startsWith("REGISTERED")){
-				onRegistered(params[0]);
+			if(payload.contains("REGISTERED")){
+				onRegistered(payload);
 				return;
 			}
 
@@ -290,16 +291,14 @@ public class ErigoService extends Service {
 		//registration successful
 		String [] params = payload.split(",");
 		registerExecutor.shutdown();
-		if(clientID == null)
+		if(payload.contains("SUCCESS"))		
 		{
 			clientID = params[0].split(":")[0];
-			//name client clientID 
-			send("NAME,"+clientID+","+clientID);
 			
 			isRegistered.set(true);
 			// let login activity know result 
 			Message message = Message.obtain(null, LoginActivity.STATUS);
-			message.obj = params[1];
+			message.obj = "SUCCESS";
 			try {
 				myMessenger.send(message);
 			} catch (RemoteException e) {
@@ -307,6 +306,18 @@ public class ErigoService extends Service {
 				e.printStackTrace();
 			}
 
+		}
+		else
+		{
+			// let login activity know result 
+			Message message = Message.obtain(null, LoginActivity.STATUS);
+			message.obj = "FAILURE";
+			try {
+				myMessenger.send(message);
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 	}

@@ -27,20 +27,20 @@ public class WorkerThread extends Thread {
 	@Override
 	public void run() {
 		// convert the rxPacket's payload to a string
-				String payloadwithAck = new String(rxPacket.getData(), 0, rxPacket.getLength())
-				.trim();
-				System.out.println(payloadwithAck);
+		String payloadwithAck = new String(rxPacket.getData(), 0, rxPacket.getLength())
+		.trim();
+		System.out.println(payloadwithAck);
 
 
-				// dispatch request handler functions based on the payload's prefix
-				String[] params = payloadwithAck.split(",");
-				String payload = payloadwithAck;
-				if(parseable(params[0])){
-					System.out.println("can ack");
-					acknowlege(params[0]);
-					payload = payloadwithAck.replaceFirst(params[0]+",","");
-				}
-				System.out.println(payload);
+		// dispatch request handler functions based on the payload's prefix
+		String[] params = payloadwithAck.split(",");
+		String payload = payloadwithAck;
+		if(parseable(params[0])){
+			System.out.println("can ack");
+			acknowlege(params[0]);
+			payload = payloadwithAck.replaceFirst(params[0]+",","");
+		}
+		System.out.println(payload);
 
 
 
@@ -143,7 +143,7 @@ public class WorkerThread extends Thread {
 		Server.Messages.put(messageID,message);
 		//specific should only be sent to people already responding and original user
 		String groupName = "Message_" + params[2];
-		String command = params[1] + "," + groupName +","+ message;
+		String command ="MSG," + params[1] + "," + groupName +","+ message;
 		onMsgRequested(command);
 	}
 
@@ -152,9 +152,9 @@ public class WorkerThread extends Thread {
 		String[] params= payload.split(",");
 		String messageID = ""+Server.MessageID.incrementAndGet();
 		String message = "PROBLEMMESSAGE,"+ messageID + "," + payload.replace(params[0]+","+params[1]+",", "");
-		String command = params[1] + "," + defaultgroup +","+ message;
+		String command = "MSG," +params[1] + "," + defaultgroup +","+ message;
 		Server.Messages.put(messageID,message);
-		
+
 		//unique message group
 		String groupName = "Message_"+messageID;
 		User user = Server.clients.get(params[1]);
@@ -170,14 +170,14 @@ public class WorkerThread extends Thread {
 
 	private void onReceivedEncouragement(String payload) {
 		// TODO Auto-generated method stub
-		
+
 		String[] params= payload.split(",");
 		String messageID = ""+Server.MessageID.incrementAndGet();
 		String message = "GENERALMESSAGE,"+messageID +"," + payload.replace(params[0]+","+params[1]+",", "");
-		String command = params[1] + "," + defaultgroup +","+ message;
+		String command ="MSG," +params[1] + "," + defaultgroup +","+ message;
 		Server.Messages.put(messageID,message);
 		onMsgRequested(command);
-		
+
 	}
 
 	private void onListMyGroupsRequested(String payload) {
@@ -317,7 +317,7 @@ public class WorkerThread extends Thread {
 
 	}
 
-	
+
 	private void onMsgRequested(String payload) {
 		String[] params= payload.split(",");
 		String reply;
@@ -329,7 +329,11 @@ public class WorkerThread extends Thread {
 		}
 		else{
 			user = Server.clients.get(params[1]);
-			if (user ==null)
+			if( user != null)
+			{
+				updateEndPoint(user);
+			}
+			if (user == null)
 			{
 				reply = "+ERROR,invalid ClientID, recheck";
 			}
@@ -344,9 +348,8 @@ public class WorkerThread extends Thread {
 				reply= "+ERROR, message body empty";
 			}
 			else {
-				updateEndPoint(user);
 				String groupName = params[2];
-				String message= "From " + user.name + "to " + groupName + ": ";
+				String message= "";
 				Group group = Server.groups.get(groupName);
 
 				if(group != null)
@@ -364,8 +367,6 @@ public class WorkerThread extends Thread {
 					//try to deliver message to client 
 					for(User client:group.members)
 					{
-						//send message to all except self
-						if(!client.getID().equals(user.getID())){
 							try{
 								send(message, client);
 							} catch (Exception e) {
@@ -377,7 +378,7 @@ public class WorkerThread extends Thread {
 								Server.messageQueue.put(client.getID(),messages);
 								e.printStackTrace();
 							}
-						}
+						
 					}
 					reply ="+SUCCESS,message sent to "+ groupName;
 				}
@@ -541,7 +542,7 @@ public class WorkerThread extends Thread {
 
 
 	}
-	
+
 	private void onPollEncouragementsRequested(String payload) {
 		String[] params = payload.split(",");
 		User user =null;
@@ -651,7 +652,7 @@ public class WorkerThread extends Thread {
 			Server.clients.put(user.getID().toString(), user);
 			Server.names.add(user.name);
 			reply = "REGISTERED,SUCCESS";
-			
+
 			//add to public message group 
 			Server.addClientToGroup(defaultgroup,user);
 		}

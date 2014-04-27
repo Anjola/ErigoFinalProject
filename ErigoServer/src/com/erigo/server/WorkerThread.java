@@ -137,9 +137,10 @@ public class WorkerThread extends Thread {
 	private void onSpecificEncouragementRequested(String payload) {
 		// TODO Auto-generated method stub
 		String[] params= payload.split(",");
-		String message = "SPECIFICMESSAGE,"+payload.replace(params[0]+","+params[1]+",", "");
+		String messageID = ""+Server.MessageID.incrementAndGet();
+		String message = "SPECIFICMESSAGE,"+messageID + "," + payload.replace(params[0]+","+params[1]+",", "");
 		//Store for app launch /periodic poll
-		Server.Messages.put(""+Server.MessageID.incrementAndGet(),message);
+		Server.Messages.put(messageID,message);
 		//specific should only be sent to people already responding and original user
 		String groupName = "Message_" + params[2];
 		String command = params[1] + "," + groupName +","+ message;
@@ -149,9 +150,9 @@ public class WorkerThread extends Thread {
 	private void onReceivedProblemRequested(String payload) {
 		// TODO Auto-generated method stub
 		String[] params= payload.split(",");
-		String message = "PROBLEMMESSAGE,"+payload.replace(params[0]+","+params[1]+",", "");
-		String command = params[1] + "," + defaultgroup +","+ message;
 		String messageID = ""+Server.MessageID.incrementAndGet();
+		String message = "PROBLEMMESSAGE,"+ messageID + "," + payload.replace(params[0]+","+params[1]+",", "");
+		String command = params[1] + "," + defaultgroup +","+ message;
 		Server.Messages.put(messageID,message);
 		
 		//unique message group
@@ -171,9 +172,10 @@ public class WorkerThread extends Thread {
 		// TODO Auto-generated method stub
 		
 		String[] params= payload.split(",");
-		String message = "GENERALMESSAGE,"+payload.replace(params[0]+","+params[1]+",", "");
+		String messageID = ""+Server.MessageID.incrementAndGet();
+		String message = "GENERALMESSAGE,"+messageID +"," + payload.replace(params[0]+","+params[1]+",", "");
 		String command = params[1] + "," + defaultgroup +","+ message;
-		Server.Messages.put(""+Server.MessageID.incrementAndGet(),message);
+		Server.Messages.put(messageID,message);
 		onMsgRequested(command);
 		
 	}
@@ -290,14 +292,10 @@ public class WorkerThread extends Thread {
 			else {
 				reply ="+ERROR,unknown ACKid\n";
 			}
-			try
-			{
-				send(reply,this.rxPacket.getAddress(),this.rxPacket.getPort());
-			}catch(IOException e)
-			{
-				e.printStackTrace();
-			}
+			System.out.println(reply);
+			//send(reply,this.rxPacket.getAddress(),this.rxPacket.getPort());
 		}
+
 
 	}
 
@@ -636,11 +634,11 @@ public class WorkerThread extends Thread {
 			{
 				if(tempUser.name.equals(params[1]))
 				{
-					user = tempUser;
 					//make sure password is valid. attempt endpoint update
 					if(tempUser.isValidPassword(params[2])){
 						reply = "REGISTERED,SUCCESS";
-						user.endpoint = new ClientEndPoint(address,port);
+						tempUser.endpoint = new ClientEndPoint(address,port);
+						user = tempUser;
 					}
 					break;
 				}
@@ -649,7 +647,7 @@ public class WorkerThread extends Thread {
 		else 
 		{
 			//first timer 
-			user = new User(params[0],params[1],new ClientEndPoint(address,port));
+			user = new User(params[1],params[2],new ClientEndPoint(address,port));
 			Server.clients.put(user.getID().toString(), user);
 			Server.names.add(user.name);
 			reply = "REGISTERED,SUCCESS";

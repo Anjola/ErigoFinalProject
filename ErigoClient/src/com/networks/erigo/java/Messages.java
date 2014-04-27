@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
+
 /**
  * Helper class for providing sample content for user interfaces created by
  * Android template wizards.
@@ -43,24 +46,37 @@ public class Messages {
 	 * A dummy item representing a piece of content.
 	 */
 	public static class Message{
-		public String id;
+		@JsonProperty("id")
+		public String id = ""+idCreator.getAndIncrement();
+		@JsonProperty("songUrl")
 		public String songUrl; 
+		@JsonProperty("imageUrl")
 		public String imageUrl;
+		@JsonProperty("message")
 		public String message; 
+		@JsonProperty("encouragingPost")
 		public boolean encouragingPost;
+		@JsonProperty("Specific")
+		public boolean Specific;
+		@JsonProperty("Categories")
 		public List<String> Categories = new ArrayList<String>();
 		
+		@JsonIgnore
 		public Message(String message, String imageUrl, String songUrl){
-			this.id =  ""+idCreator.getAndIncrement();
 			this.message  = message;
 			this.imageUrl = imageUrl;
 			this.songUrl = songUrl;
 		}
 		
-	  public boolean isEmpty()
-	  {
-		return message.isEmpty()&&imageUrl.isEmpty()&&songUrl.isEmpty();
-	  }
+		public Message(){
+			
+		}
+		
+		@JsonIgnore
+		  public boolean isEmpty()
+		  {
+			return message.isEmpty()&&imageUrl.isEmpty()&&songUrl.isEmpty();
+		  }
 
 
 		@Override

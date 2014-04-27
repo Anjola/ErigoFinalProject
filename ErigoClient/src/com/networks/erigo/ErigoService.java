@@ -251,6 +251,7 @@ public class ErigoService extends Service {
 			Message message = Message.obtain(null, ErigoFrameActivity.GENERALMESSAGE);
 			message.obj = payload;
 			try {
+				Log.i("Verbose",(String)message.obj);
 				myMessenger.send(message);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
@@ -391,6 +392,14 @@ public class ErigoService extends Service {
 	}
 
 	public void sendPoll() {
+		send("POLL,"+clientID);
+		Toast.makeText(getApplicationContext(), "Polling Server...",
+				Toast.LENGTH_SHORT).show();
+
+	}
+	
+	//data dump function
+	public void sendPollMessages() {
 		send("POLL,"+clientID);
 		Toast.makeText(getApplicationContext(), "Polling Server...",
 				Toast.LENGTH_SHORT).show();

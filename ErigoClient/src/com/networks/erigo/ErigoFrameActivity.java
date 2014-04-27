@@ -5,7 +5,12 @@ import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.util.Locale;
 
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+
 import com.networks.erigo.java.ErigoUtils;
+import com.networks.erigo.java.Messages;
 
 import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBarActivity;
@@ -198,7 +203,31 @@ public class ErigoFrameActivity extends ActionBarActivity implements
 	public void parseGeneralMessage(String obj) {
 		// TODO Auto-generated method stub
 		
+		//extract messageID 
+		String messageID = obj.split(",")[0];
+		Messages.Message mMessage = null;
+		;
+		ObjectMapper mapper  = new ObjectMapper();
+		try {
+			Log.i("Verbose","Json:" + obj.replaceFirst(messageID+",", ""));
+			mMessage = mapper.readValue(obj.replaceFirst(messageID+",", ""),Messages.Message.class);
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Log.i("Success",mMessage.message);
+		Log.i("Success",mMessage.songUrl);
+		Log.i("Success",mMessage.imageUrl);
+		Log.i("Success",mMessage.Categories.get(0));
+		
 	}
+	
 	
 
 	@Override

@@ -136,8 +136,8 @@ public class ErigoFrameActivity extends ActionBarActivity implements
 		final ActionBar actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-		// Create the adapter that will return a fragment for each of the three
-		// primary sections of the activity.
+		// Create the adapter that will return a fragment for each
+		// primary section of the activity.
 		mSectionsPagerAdapter = new SectionsPagerAdapter(
 				getSupportFragmentManager());
 		
@@ -171,6 +171,37 @@ public class ErigoFrameActivity extends ActionBarActivity implements
 	
 	public void parseProblemMessage(String obj) {
 		// TODO Auto-generated method stub
+		//extract unique message ID from server
+				String messageID = obj.split(",")[0];
+				Messages.Message mMessage = null;
+				;
+				ObjectMapper mapper  = new ObjectMapper();
+				try {
+					Log.i("Verbose","Json:" + obj.replaceFirst(messageID+",", ""));
+					mMessage = mapper.readValue(obj.replaceFirst(messageID+",", ""),Messages.Message.class);
+					
+					//change ID to global ID for identification purposes
+					mMessage.id = messageID;
+					PostsFragment fragment = (PostsFragment)getSupportFragmentManager().
+							findFragmentByTag("android:switcher:"+R.id.pager+":3");
+						      if(fragment != null)  // could be null if not instantiated yet
+						      {
+						         if(fragment.getView() != null) 
+						         {
+						            
+						            fragment.updateListView(mMessage); // do what updates are required
+						         }
+						      }
+				} catch (JsonParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (JsonMappingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 		
 	}
 
@@ -197,13 +228,49 @@ public class ErigoFrameActivity extends ActionBarActivity implements
 	}
 	public void parseSpecificMessage(String obj) {
 		// TODO Auto-generated method stub
+		//extract unique message ID from server
+				
+				String [] params = obj.split(",");
+				//server messageID 
+				String messageID = params[0];
+				//post that specific response is for
+				String targetmMessageID =params[1]; 
+				Messages.Message mMessage = null;
+				;
+				ObjectMapper mapper  = new ObjectMapper();
+				try {
+					Log.i("Verbose","Json:" + obj.replaceFirst(messageID+",", ""));
+					mMessage = mapper.readValue(obj.replaceFirst(messageID+",", ""),Messages.Message.class);
+					
+					//change ID to global ID for identification purposes
+					mMessage.id = messageID;
+					PostsFragment fragment = (PostsFragment)getSupportFragmentManager().
+							findFragmentByTag("android:switcher:"+R.id.pager+":3");
+						      if(fragment != null)  // could be null if not instantiated yet
+						      {
+						         if(fragment.getView() != null) 
+						         {
+						            //TODO: make sure it goes to specified message detailed view
+						            fragment.updateListView(mMessage); 
+						         }
+						      }
+				} catch (JsonParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (JsonMappingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 		
 	}
 
 	public void parseGeneralMessage(String obj) {
 		// TODO Auto-generated method stub
 		
-		//extract messageID 
+		//extract unique message ID from server
 		String messageID = obj.split(",")[0];
 		Messages.Message mMessage = null;
 		;
@@ -211,6 +278,19 @@ public class ErigoFrameActivity extends ActionBarActivity implements
 		try {
 			Log.i("Verbose","Json:" + obj.replaceFirst(messageID+",", ""));
 			mMessage = mapper.readValue(obj.replaceFirst(messageID+",", ""),Messages.Message.class);
+			
+			//change ID to global ID for identification purposes
+			mMessage.id = messageID;
+			PostsFragment fragment = (PostsFragment)getSupportFragmentManager().
+					findFragmentByTag("android:switcher:"+R.id.pager+":3");
+				      if(fragment != null)  // could be null if not instantiated yet
+				      {
+				         if(fragment.getView() != null) 
+				         {
+				            
+				            fragment.updateListView(mMessage); // do what updates are required
+				         }
+				      }
 		} catch (JsonParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -221,11 +301,7 @@ public class ErigoFrameActivity extends ActionBarActivity implements
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Log.i("Success",mMessage.message);
-		Log.i("Success",mMessage.songUrl);
-		Log.i("Success",mMessage.imageUrl);
-		Log.i("Success",mMessage.Categories.get(0));
-		
+
 	}
 	
 	

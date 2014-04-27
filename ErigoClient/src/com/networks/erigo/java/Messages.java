@@ -25,17 +25,7 @@ public class Messages {
 	
 	public static AtomicLong idCreator = new AtomicLong();
 
-	/**
-	 * A map of sample (dummy) items, by ID.
-	 */
 	public static Map<String, Message> message_map= new HashMap<String, Message>();
-
-	static {
-		// Add 3 sample items.
-		addItem(new Message("Item 1","",""));
-		addItem(new Message("Item 2","",""));
-		addItem(new Message("Item 3","",""));
-	}
 
 	private static void addItem(Message message) {
 		messages.add(message);

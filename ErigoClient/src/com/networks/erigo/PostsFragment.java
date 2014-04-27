@@ -150,4 +150,11 @@ public class PostsFragment extends Fragment implements
 		public void onFragmentInteraction(String id);
 	}
 
+	public void updateListView(Messages.Message mMessage) {
+		// TODO Auto-generated method stub
+		Messages.messages.add(mMessage);
+	}
+
+
+
 }

@@ -93,7 +93,7 @@ public class WorkerThread extends Thread {
 			onPollRequested(payload);
 			return;
 		}
-		if(payload.startsWith("POLLMESSAGE"))
+		if(payload.startsWith("GETMESSAGES"))
 		{
 			onPollEncouragementsRequested(payload);
 			return;

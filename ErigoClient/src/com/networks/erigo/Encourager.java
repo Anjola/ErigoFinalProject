@@ -257,29 +257,7 @@ public class Encourager extends Fragment {
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-//						AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-//
-//						alert.setTitle("Enter Imagr Url");
-//						alert.setMessage("Message");
-//
-//						// Set an EditText view to get user input 
-//						final EditText input = new EditText(getActivity());
-//						alert.setView(input);
-//
-//						alert.setPositiveButton("Song", new DialogInterface.OnClickListener() {
-//							public void onClick(DialogInterface dialog, int id) {
-//								// User clicked OK button
-//								mMessage.imageUrl = input.getText().toString();
-//								Toast.makeText(getActivity().getApplicationContext(), "Image added!",
-//										   Toast.LENGTH_LONG).show();
-//							}
-//						});
-//						alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//							public void onClick(DialogInterface dialog, int id) {
-//								// User cancelled the dialog
-//							}
-//						});
-//						alert.show();
+//			
 						Toast.makeText(getActivity().getApplicationContext(), "Coming soon!",
 								   Toast.LENGTH_LONG).show();
 

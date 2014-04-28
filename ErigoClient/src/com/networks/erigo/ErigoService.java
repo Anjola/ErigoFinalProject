@@ -306,6 +306,7 @@ public class ErigoService extends Service {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
 
 		}
 		else
@@ -399,10 +400,8 @@ public class ErigoService extends Service {
 	}
 	
 	//data dump function
-	public void sendPollMessages() {
-		send("POLL,"+clientID);
-		Toast.makeText(getApplicationContext(), "Polling Server...",
-				Toast.LENGTH_SHORT).show();
+	public void getMessages() {
+		send("GETMESSAGES,"+clientID);
 
 	}
 

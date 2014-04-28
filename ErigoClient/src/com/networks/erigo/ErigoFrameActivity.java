@@ -80,7 +80,8 @@ public class ErigoFrameActivity extends ActionBarActivity implements
 					activity.parseSpecificMessage((String)message.obj);
 					break;
 				case PROBLEMMESSAGE:
-					activity.parseProblemMessage((String)message.obj);
+					activity.parseGeneralMessage((String)message.obj);
+					break;
 				default:
 					super.handleMessage(message);
 				}
@@ -184,14 +185,16 @@ public class ErigoFrameActivity extends ActionBarActivity implements
 							findFragmentByTag("android:switcher:"+R.id.pager+":3");
 						      if(fragment != null)  // could be null if not instantiated yet
 						      {
+						    	  Log.i("verbose","Fragment is not null");
 						         if(fragment.getView() != null) 
 						         {
-						            
+						        	 Log.i("verbose","Update view Called");
 						            fragment.updateListView(mMessage); 
 						         }
 						      }
 				} catch (JsonParseException e) {
 					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				} catch (JsonMappingException e) {
 					// TODO Auto-generated catch block

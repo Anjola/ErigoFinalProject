@@ -95,6 +95,11 @@ public class PostsFragment extends Fragment implements
 		return view;
 	}
 
+	
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		//initial message population
+		((ErigoFrameActivity)getActivity()).mService.getMessages();
+	}
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);

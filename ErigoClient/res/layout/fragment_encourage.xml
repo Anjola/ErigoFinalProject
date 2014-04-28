@@ -81,7 +81,7 @@
                 android:inputType="textMultiLine"
                 android:lines="5"
                 android:maxLines="6"
-                android:minLines="1"
+                android:minLines="3"
                 android:scrollbars="vertical" >
 
                 <requestFocus />

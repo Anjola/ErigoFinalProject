@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +30,7 @@ public class MenuFragment extends Fragment {
 	// TODO: Rename and change types of parameters
 	private String mParam1;
 	private String mParam2;
+	ViewPager mViewPager;
 
 	private OnFragmentInteractionListener mListener;
 
@@ -67,18 +71,19 @@ public class MenuFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-				return inflater.inflate(R.layout.fragment_main1, container, false);
+		return inflater.inflate(R.layout.fragment_main1, container, false);
 	}
-	
-	
+
+
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
-	    super.onViewCreated(view, savedInstanceState);
-		
+		super.onViewCreated(view, savedInstanceState);
+		mViewPager = (ViewPager) getActivity().findViewById(R.id.pager);
 		view.findViewById(R.id.posts).setOnClickListener(
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
+						mViewPager.setCurrentItem(3);
 
 					}
 				});
@@ -86,14 +91,17 @@ public class MenuFragment extends Fragment {
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-						
+						mViewPager.setCurrentItem(1);
 					}
+	
+
 				});
 		view.findViewById(R.id.getencouraged).setOnClickListener(
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-					
+						mViewPager.setCurrentItem(2);
+
 					}
 				});
 
@@ -106,22 +114,22 @@ public class MenuFragment extends Fragment {
 		}
 	}
 
-//	@Override
-//	public void onAttach(Activity activity) {
-//		super.onAttach(activity);
-//		try {
-//			mListener = (OnFragmentInteractionListener) activity;
-//		} catch (ClassCastException e) {
-//			throw new ClassCastException(activity.toString()
-//					+ " must implement OnFragmentInteractionListener");
-//		}
-//	}
-//
-//	@Override
-//	public void onDetach() {
-//		super.onDetach();
-//		mListener = null;
-//	}
+		@Override
+		public void onAttach(Activity activity) {
+			super.onAttach(activity);
+			try {
+				mListener = (OnFragmentInteractionListener) activity;
+			} catch (ClassCastException e) {
+				throw new ClassCastException(activity.toString()
+						+ " must implement OnFragmentInteractionListener");
+			}
+		}
+	
+		@Override
+		public void onDetach() {
+			super.onDetach();
+			mListener = null;
+		}
 
 	/**
 	 * This interface must be implemented by activities that contain this

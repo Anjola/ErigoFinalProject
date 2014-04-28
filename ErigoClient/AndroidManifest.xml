@@ -28,20 +28,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.networks.erigo.LoginActivitym"
-            android:label="@string/title_activity_login_activitym"
-            android:windowSoftInputMode="adjustResize|stateVisible" >
-        </activity>
-        <activity
-            android:name="com.networks.erigo.Main1Activity"
-            android:label="@string/title_activity_main1"
-            android:parentActivityName="com.networks.erigo.LoginActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.networks.erigo.LoginActivity" />
-        </activity>
-        <activity
             android:name="com.networks.erigo.ErigoFrameActivity"
+            android:windowSoftInputMode="stateHidden"
             android:label="@string/title_activity_erigo_frame"
             android:parentActivityName="com.networks.erigo.Main1Activity" >
             <meta-data

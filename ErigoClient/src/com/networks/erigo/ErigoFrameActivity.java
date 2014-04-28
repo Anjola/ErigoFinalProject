@@ -32,16 +32,14 @@ import android.os.Message;
 import android.os.Messenger;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+
 
 public class ErigoFrameActivity extends ActionBarActivity implements
 		ActionBar.TabListener,Encourage.OnFragmentInteractionListener,
-		Encourager.OnFragmentInteractionListener,PostsFragment.OnFragmentInteractionListener{
+		Encourager.OnFragmentInteractionListener,PostsFragment.OnFragmentInteractionListener,
+		MenuFragment.OnFragmentInteractionListener{
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -189,7 +187,7 @@ public class ErigoFrameActivity extends ActionBarActivity implements
 						         if(fragment.getView() != null) 
 						         {
 						            
-						            fragment.updateListView(mMessage); // do what updates are required
+						            fragment.updateListView(mMessage); 
 						         }
 						      }
 				} catch (JsonParseException e) {

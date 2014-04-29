@@ -368,9 +368,6 @@ public class ErigoFrameActivity extends ActionBarActivity implements
 	
 	        case 3:
 	            return  R.drawable.postsicon;
-	   
-	        case 4:
-	        	return R.drawable.ic_action_select_all;
         }
 		return 0;
 			
@@ -392,9 +389,6 @@ public class ErigoFrameActivity extends ActionBarActivity implements
 		
 		        case 3:
 		            return new PostsFragment();
-		   
-		        case 4:
-		        	return new MessageListFragment();
 	        }
 	        return null;
 		}
@@ -402,7 +396,7 @@ public class ErigoFrameActivity extends ActionBarActivity implements
 		@Override
 		public int getCount() {
 			// Show 5 total pages.
-			return 5;
+			return 4;
 		}
 
 		@Override
@@ -417,8 +411,6 @@ public class ErigoFrameActivity extends ActionBarActivity implements
 					return "Encourage someone";
 				case 3:
 					return "View Posts";
-				case 4:
-					return "Categories";
 			}
 			return null;
 		}

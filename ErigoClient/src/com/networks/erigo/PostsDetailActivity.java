@@ -12,9 +12,9 @@ import android.view.MenuItem;
  * presented side-by-side with a list of items in a {@link MessageListActivity}.
  * <p>
  * This activity is mostly just a 'shell' activity containing nothing more than
- * a {@link MessageDetailFragment}.
+ * a {@link PostsDetailFragment}.
  */
-public class MessageDetailActivity extends FragmentActivity {
+public class PostsDetailActivity extends FragmentActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +36,9 @@ public class MessageDetailActivity extends FragmentActivity {
 		if (savedInstanceState == null) {
 			// Create the detail fragment and add it to the activity
 			// using a fragment transaction.
-			Bundle arguments = new Bundle();
-			arguments.putString(MessageDetailFragment.ARG_ITEM_ID, getIntent()
-					.getStringExtra(MessageDetailFragment.ARG_ITEM_ID));
-			MessageDetailFragment fragment = new MessageDetailFragment();
-			fragment.setArguments(arguments);
+			Bundle bundle = getIntent().getExtras();
+			PostsDetailFragment fragment = new PostsDetailFragment();
+			fragment.setArguments(bundle);
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.message_detail_container, fragment).commit();
 		}
@@ -51,14 +49,8 @@ public class MessageDetailActivity extends FragmentActivity {
 		int id = item.getItemId();
 		if (id == android.R.id.home) {
 			// This ID represents the Home or Up button. In the case of this
-			// activity, the Up button is shown. Use NavUtils to allow users
-			// to navigate up one level in the application structure. For
-			// more details, see the Navigation pattern on Android Design:
-			//
-			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
-			//
 			NavUtils.navigateUpTo(this, new Intent(this,
-					MessageListActivity.class));
+					ErigoFrameActivity.class));
 			return true;
 		}
 		return super.onOptionsItemSelected(item);

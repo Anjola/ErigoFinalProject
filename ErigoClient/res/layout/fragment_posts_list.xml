@@ -6,6 +6,14 @@
     android:background="@drawable/background1"
     tools:context="com.networks.erigo.PostsFragment" >
 
+      <EditText android:id="@+id/search_box" 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="enter category to filter by"
+        android:inputType="text"
+        android:drawableLeft="@drawable/ic_action_search"
+        android:maxLines="1"/>
+
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
@@ -15,6 +23,7 @@
         android:id="@android:id/empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:text="Oops! No posts yet"
         android:gravity="center" />
 
 </FrameLayout>

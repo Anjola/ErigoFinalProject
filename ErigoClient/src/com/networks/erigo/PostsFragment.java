@@ -1,8 +1,10 @@
 package com.networks.erigo;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.networks.erigo.java.Messages;
@@ -24,7 +27,7 @@ import com.networks.erigo.java.Messages;
  * interface.
  */
 public class PostsFragment extends Fragment implements
-		AbsListView.OnItemClickListener {
+AbsListView.OnItemClickListener {
 
 	// TODO: Rename parameter arguments, choose names that match
 	// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -88,6 +91,23 @@ public class PostsFragment extends Fragment implements
 		// Set the adapter
 		mListView = (AbsListView) view.findViewById(android.R.id.list);
 		((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
+//		inputSearch = (EditText) findViewById(R.id.inputSearch);
+//
+//		// Adding items to listview
+//		inputSearch.addTextChangedListener(new TextWatcher() {
+//
+//			@Override
+//			public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+//				// When user changed the Text
+//				MainActivity.this.adapter.getFilter().filter(cs);
+//			}
+//
+//			@Override
+//			public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) { }
+//
+//			@Override
+//			public void afterTextChanged(Editable arg0) {}
+//		});
 
 		// Set OnItemClickListener so we can be notified on item clicks
 		mListView.setOnItemClickListener(this);
@@ -95,11 +115,13 @@ public class PostsFragment extends Fragment implements
 		return view;
 	}
 
-	
+
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		//initial message population
 		((ErigoFrameActivity)getActivity()).mService.getMessages();
 	}
+	
+	
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
@@ -120,18 +142,19 @@ public class PostsFragment extends Fragment implements
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		if (null != mListener) {
-			// Notify the active callbacks interface (the activity, if the
-			// fragment is attached to one) that an item has been selected.
-			mListener
-					.onFragmentInteraction(Messages.messages.get(position).id);
-		}
+		Messages.Message message = (Messages.Message)parent.getItemAtPosition(position);
+		Intent intent = new Intent(view.getContext(), PostsDetailActivity.class);
+		//send message to details activity 
+		Log.i("verbose","Sucess binding");
+		intent.putExtra("Messages.Message", message);
+		startActivity(intent);
 	}
+	
+
 
 	/**
 	 * The default content for this Fragment has a TextView that is shown when
-	 * the list is empty. If you would like to change the text, call this method
-	 * to supply the text it should use.
+	 * the list is empty. 
 	 */
 	public void setEmptyText(CharSequence emptyText) {
 		View emptyView = mListView.getEmptyView();
@@ -157,7 +180,7 @@ public class PostsFragment extends Fragment implements
 
 	public void updateListView(Messages.Message mMessage) {
 		// TODO Auto-generated method stub
-		Messages.messages.add(mMessage);
+		Messages.addItem(mMessage);
 	}
 
 

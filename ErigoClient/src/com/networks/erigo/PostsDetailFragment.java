@@ -16,8 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.networks.erigo.java.Messages;
 import com.networks.erigo.java.Messages.Message;
 
 /**
@@ -58,7 +56,7 @@ public class PostsDetailFragment extends Fragment {
 			((TextView) rootView.findViewById(R.id.message_detail))
 			.setText(mMessage.message);
 			if(mMessage.imageUrl !=  null){
-				new LoadImagefromUrl(getActivity()).execute( (ImageView)rootView.findViewById(R.id.detailImage), 
+				new LoadImagefromUrl(getActivity()).execute((ImageView)rootView.findViewById(R.id.detailImage), 
 						mMessage.imageUrl);
 			}
 			if(mMessage.songUrl != null){
@@ -75,7 +73,7 @@ public class PostsDetailFragment extends Fragment {
 				}
 				
 			}
-			((TextView) rootView.findViewById(R.id.Tags)).setText(tags);
+			((TextView) rootView.findViewById(R.id.TagContent)).setText(tags);
 		}
 		
 		return rootView;
@@ -96,8 +94,7 @@ public class PostsDetailFragment extends Fragment {
 		protected Bitmap doInBackground( Object... params ) {
 			this.ivPreview = (ImageView) params[0];
 			String url = (String) params[1];
-			System.out.println(url);
-			return loadBitmap( url );
+			return loadBitmap(url);
 		}
 
 		@Override
@@ -113,8 +110,8 @@ public class PostsDetailFragment extends Fragment {
 
 		try {
 
-			newurl = new URL( url );
-			bitmap = BitmapFactory.decodeStream( newurl.openConnection().getInputStream() );
+			newurl = new URL(url);
+			bitmap = BitmapFactory.decodeStream( newurl.openConnection().getInputStream());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

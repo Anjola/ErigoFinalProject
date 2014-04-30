@@ -91,6 +91,8 @@ AbsListView.OnItemClickListener {
 		// Set the adapter
 		mListView = (AbsListView) view.findViewById(android.R.id.list);
 		((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
+		//initial message population
+		((ErigoFrameActivity)getActivity()).mService.getMessages();
 //		inputSearch = (EditText) findViewById(R.id.inputSearch);
 //
 //		// Adding items to listview
@@ -117,8 +119,8 @@ AbsListView.OnItemClickListener {
 
 
 	public void onViewCreated(View view, Bundle savedInstanceState) {
-		//initial message population
-		((ErigoFrameActivity)getActivity()).mService.getMessages();
+//		//initial message population
+//		((ErigoFrameActivity)getActivity()).mService.getMessages();
 	}
 	
 	
